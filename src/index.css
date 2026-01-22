@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 50% 98%;
+    --foreground: 20 20% 15%;
+
+    --card: 30 40% 97%;
+    --card-foreground: 20 20% 15%;
+
+    --popover: 30 40% 97%;
+    --popover-foreground: 20 20% 15%;
+
+    --primary: 24 95% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 142 50% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 30 20% 92%;
+    --muted-foreground: 20 10% 45%;
+
+    --accent: 142 40% 92%;
+    --accent-foreground: 142 50% 25%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 30 20% 88%;
+    --input: 30 20% 88%;
+    --ring: 24 95% 53%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --cream: 35 60% 95%;
+    --saffron: 24 95% 53%;
+    --saffron-light: 30 90% 60%;
+    --saffron-dark: 20 90% 45%;
+    --fresh-green: 142 50% 45%;
+    --fresh-green-light: 142 45% 55%;
+    --dark-green: 142 50% 25%;
+    --warm-brown: 20 30% 25%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--saffron)) 0%, hsl(var(--saffron-light)) 100%);
+    --gradient-green: linear-gradient(135deg, hsl(var(--fresh-green)) 0%, hsl(var(--fresh-green-light)) 100%);
+    --gradient-warm: linear-gradient(180deg, hsl(var(--cream)) 0%, hsl(var(--background)) 100%);
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(var(--saffron) / 0.15);
+    --shadow-card: 0 8px 30px -8px hsl(20 30% 20% / 0.1);
+    --shadow-glow: 0 0 40px hsl(var(--saffron) / 0.25);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 20 20% 10%;
+    --foreground: 30 30% 95%;
+
+    --card: 20 20% 12%;
+    --card-foreground: 30 30% 95%;
+
+    --popover: 20 20% 12%;
+    --popover-foreground: 30 30% 95%;
+
+    --primary: 24 95% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 142 45% 40%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 20 15% 20%;
+    --muted-foreground: 30 15% 65%;
+
+    --accent: 142 30% 20%;
+    --accent-foreground: 142 45% 70%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 20 15% 20%;
+    --input: 20 15% 20%;
+    --ring: 24 95% 55%;
+
+    --cream: 20 15% 15%;
+    --saffron: 24 95% 55%;
+    --saffron-light: 30 85% 60%;
+    --saffron-dark: 20 85% 45%;
+    --fresh-green: 142 45% 40%;
+    --fresh-green-light: 142 40% 50%;
+    --dark-green: 142 40% 60%;
+    --warm-brown: 30 20% 80%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer utilities {
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-green {
+    background: var(--gradient-green);
+  }
+
+  .gradient-warm {
+    background: var(--gradient-warm);
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background: var(--gradient-hero);
+  }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.7);
+}
