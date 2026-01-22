@@ -35,7 +35,7 @@ Follow these steps to run the project locally on your machine.
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/Sarthakbhuptani123/Mom-sspecial.git
+    git clone https://github.com/sarthak-bhuptani/Mom-sspecial
     cd Mom-sspecial
     ```
 
