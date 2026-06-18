@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Leaf, Clock, Info, CheckCircle2 } from "lucide-react";
+import { Leaf, Info, MessageCircle, Utensils, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
-import { lunchMenu as staticLunch, dinnerMenu as staticDinner, optionalItems as staticOptional } from "@/data/menuData";
+import { optionalItems as staticOptional } from "@/data/menuData";
 
 import { API_URL } from "@/config";
 
 const Menu = () => {
-  const [lunchMenu, setLunchMenu] = useState(staticLunch);
-  const [dinnerMenu, setDinnerMenu] = useState(staticDinner);
   const [optionalItems, setOptionalItems] = useState(staticOptional);
 
   useEffect(() => {
@@ -19,8 +17,6 @@ const Menu = () => {
       })
       .then(data => {
         if (data && !data.error) {
-          if (Array.isArray(data.lunch)) setLunchMenu(data.lunch);
-          if (Array.isArray(data.dinner)) setDinnerMenu(data.dinner);
           if (Array.isArray(data.optional)) setOptionalItems(data.optional);
         }
       })
@@ -108,323 +104,191 @@ const Menu = () => {
             className="max-w-6xl mx-auto space-y-16"
           >
 
-            {/* Mobile View: Combined Daily Cards */}
-            <div className="md:hidden space-y-6">
-              {lunchMenu && Array.isArray(lunchMenu) ? lunchMenu.map((lunchItem, index) => {
-                const dinnerItem = dinnerMenu.find(d => d.day === lunchItem.day);
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="bg-card rounded-2xl border border-border overflow-hidden shadow-sm"
-                  >
-                    {/* Card Header (Day) */}
-                    <div className="bg-primary/5 border-b border-border/50 py-2 px-4 flex items-center justify-between">
-                      <span className="font-bold text-lg text-primary">{lunchItem.day}</span>
-                      <div className="flex gap-2">
-                        <span className="text-[10px] font-bold uppercase tracking-wider bg-primary/10 text-primary px-2 py-0.5 rounded">Lunch</span>
-                        <span className="text-[10px] font-bold uppercase tracking-wider bg-secondary/10 text-secondary px-2 py-0.5 rounded">Dinner</span>
+            {/* Tiffin Overview & Live WhatsApp Menu */}
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              
+              {/* Tiffin Explanation Card */}
+              <motion.div
+                variants={item}
+                className="bg-card p-6 md:p-8 rounded-3xl border border-border shadow-sm flex flex-col justify-between"
+              >
+                <div>
+                  <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+                    <Utensils className="w-5 h-5 text-primary" />
+                    What We Provide In Our Tiffins
+                  </h3>
+                  <p className="text-muted-foreground text-sm mb-6">
+                    Our meals are prepared using fresh ingredients, minimal oil, and no artificial colors or preservatives.
+                  </p>
+                  
+                  <div className="space-y-4">
+                    {/* Basic Tiffin */}
+                    <div className="bg-muted/30 p-4 rounded-2xl border border-border/50">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="font-bold text-base text-foreground">Basic Tiffin</span>
+                        <span className="text-sm font-bold text-primary">₹60 / meal</span>
                       </div>
+                      <ul className="text-xs text-muted-foreground space-y-1.5 list-disc pl-4">
+                        <li>**6** Fresh **Phulka Rotis** (Hot & Soft)</li>
+                        <li>Delicious **Seasonal Sabji** (Main Curry)</li>
+                        <li>Fresh **Salad** on the side</li>
+                        <li className="text-red-500/80 dark:text-red-400/80 font-medium list-none -ml-4">❌ No Rice / No Dal</li>
+                      </ul>
                     </div>
 
-                    {/* Split Layout */}
-                    <div className="flex divide-x divide-border/50">
-                      {/* Left Side: Lunch */}
-                      <div className="flex-1 p-3 space-y-3 bg-gradient-to-b from-primary/5 to-transparent">
-                        <div className="flex flex-col gap-1">
-                          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Sabji</span>
-                          <span className="text-sm font-semibold leading-tight">{lunchItem.sabji}</span>
-                        </div>
-                        <div className="flex flex-col gap-1">
-                          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Dal</span>
-                          <span className="text-sm font-medium leading-tight">{lunchItem.dal}</span>
-                        </div>
-                        <div className="flex flex-wrap gap-2 pt-1">
-                          {lunchItem.roti !== "✔️" && (
-                            <span className="text-[10px] px-1.5 py-0.5 bg-background border border-border rounded text-muted-foreground whitespace-nowrap">
-                              {lunchItem.roti}
-                            </span>
-                          )}
-                          {lunchItem.rice !== "✔️" && lunchItem.rice !== "-" && (
-                            <span className="text-[10px] px-1.5 py-0.5 bg-background border border-border rounded text-muted-foreground whitespace-nowrap">
-                              Rice: {lunchItem.rice}
-                            </span>
-                          )}
-                        </div>
+                    {/* Full Tiffin */}
+                    <div className="bg-primary/5 p-4 rounded-2xl border border-primary/10">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="font-bold text-base text-foreground flex items-center gap-1.5">
+                          Full Tiffin <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-bold uppercase">Popular</span>
+                        </span>
+                        <span className="text-sm font-bold text-primary">₹80 / meal</span>
                       </div>
-
-                      {/* Right Side: Dinner */}
-                      <div className="flex-1 p-3 space-y-3 bg-gradient-to-b from-secondary/5 to-transparent">
-                        <div className="flex flex-col gap-1">
-                          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Sabji</span>
-                          <span className="text-sm font-semibold leading-tight">{dinnerItem?.sabji || "-"}</span>
-                        </div>
-                        <div className="flex flex-col gap-1">
-                          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Roti</span>
-                          <div className="text-sm font-medium leading-tight">
-                            {dinnerItem?.roti === "✔️" ? (
-                              <span className="flex items-center gap-1 text-green-600 dark:text-green-400">
-                                <CheckCircle2 className="w-3 h-3" /> Standard
-                              </span>
-                            ) : (
-                              <span>{dinnerItem?.roti}</span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
+                      <ul className="text-xs text-muted-foreground space-y-1.5 list-disc pl-4">
+                        <li>**6** Fresh **Phulka Rotis** (Hot & Soft)</li>
+                        <li>Delicious **Seasonal Sabji** (Main Curry)</li>
+                        <li>Wholesome **Dal / Curry**</li>
+                        <li>Steaming **Rice / Pulses**</li>
+                        <li>Fresh **Salad** on the side</li>
+                      </ul>
                     </div>
-                  </motion.div>
-                );
-              }) : <p className="text-center py-4">Menu loading...</p>}
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* WhatsApp Live Updates Card */}
+              <motion.div
+                variants={item}
+                className="relative bg-gradient-to-br from-green-500/10 via-emerald-500/5 to-transparent border border-green-500/20 rounded-3xl p-6 md:p-8 shadow-sm overflow-hidden flex flex-col justify-between"
+              >
+                <div className="absolute top-0 right-0 p-32 bg-green-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 -z-10"></div>
+                <div className="space-y-4">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-500/20 text-green-700 dark:text-green-400 text-xs font-bold uppercase tracking-wider rounded-full border border-green-500/30">
+                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    Live WhatsApp Status Menu
+                  </span>
+                  <h3 className="text-2xl font-bold text-foreground">
+                    Today's Menu is on WhatsApp!
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    Because we prepare fresh seasonal dishes daily, we update our active daily menu on our **WhatsApp Status every morning**.
+                  </p>
+                  <p className="text-muted-foreground text-sm">
+                    Subscribe or send us a message to check what is cooking today and get daily menu updates directly on your chat!
+                  </p>
+                </div>
+                <motion.a
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  href="https://wa.me/917436059291?text=Hi!%20Please%20share%20today's%20tiffin%20menu%20with%20me."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-6 rounded-full shadow-lg flex items-center justify-center gap-3 transition-colors mt-6 text-base w-full"
+                >
+                  <MessageCircle className="w-5 h-5 fill-white" />
+                  Get Today's Menu on WhatsApp
+                </motion.a>
+              </motion.div>
+
             </div>
 
-            {/* Desktop View: Lunch Menu Table */}
-            <motion.div variants={item} className="hidden md:block relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-green-400 rounded-3xl opacity-20 group-hover:opacity-40 blur transition duration-500" />
-              <div className="relative bg-card rounded-2xl shadow-xl border border-border overflow-hidden">
-                <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-transparent p-6 md:p-8 border-b border-border/60">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            {/* Optional Items & Important Notes */}
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              
+              {/* Optional Items */}
+              <motion.div variants={item} className="relative group h-full">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-green-500 to-emerald-400 rounded-3xl opacity-20 group-hover:opacity-40 blur transition duration-500" />
+                <div className="relative bg-card rounded-2xl shadow-xl border border-border overflow-hidden h-full flex flex-col">
+                  <div className="bg-gradient-to-r from-green-500/5 via-green-500/10 to-transparent p-6 border-b border-border/60">
                     <div className="flex items-center gap-4">
-                      <div className="p-3 bg-white dark:bg-card rounded-xl shadow-sm ring-1 ring-border">
-                        <span className="text-3xl">🥗</span>
+                      <div className="p-2.5 bg-white dark:bg-card rounded-lg shadow-sm ring-1 ring-border">
+                        <span className="text-2xl">🍱</span>
                       </div>
-                      <div>
-                        <h2 className="text-2xl md:text-3xl font-bold text-foreground">LUNCH MENU</h2>
-                        <p className="text-sm text-muted-foreground mt-1 font-medium">Full Thali Format</p>
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-end gap-1">
-                      <div className="flex items-center gap-2 text-sm font-medium text-foreground bg-accent/50 px-4 py-1.5 rounded-full border border-border">
-                        <Clock className="w-4 h-4 text-primary" />
-                        <span>12:00 PM - 1:30 PM</span>
-                      </div>
+                      <h2 className="text-xl font-bold text-green-700 dark:text-green-400">SABJI VARIETIES</h2>
                     </div>
                   </div>
-                  <div className="mt-6 flex gap-2 text-xs md:text-sm font-medium text-muted-foreground flex-wrap">
-                    <span className="bg-background px-2 py-1 rounded border border-border">Roti included</span>
-                    <span className="bg-background px-2 py-1 rounded border border-border">+</span>
-                    <span className="bg-background px-2 py-1 rounded border border-border">Sabji</span>
-                    <span className="bg-background px-2 py-1 rounded border border-border">+</span>
-                    <span className="bg-background px-2 py-1 rounded border border-border">Dal</span>
-                    <span className="bg-background px-2 py-1 rounded border border-border">+</span>
-                    <span className="bg-background px-2 py-1 rounded border border-border">Rice</span>
-                  </div>
-                </div>
-
-                <div className="hidden md:block overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
-                    <thead>
-                      <tr className="bg-muted/30 text-muted-foreground border-b border-border">
-                        <th className="p-3 md:p-5 font-bold uppercase text-xs tracking-wider">Day</th>
-                        <th className="p-3 md:p-5 font-bold uppercase text-xs tracking-wider text-center">Roti (Daily)</th>
-                        <th className="p-3 md:p-5 font-bold uppercase text-xs tracking-wider">Sabji</th>
-                        <th className="p-3 md:p-5 font-bold uppercase text-xs tracking-wider">Dal</th>
-                        <th className="p-3 md:p-5 font-bold uppercase text-xs tracking-wider text-center">Rice</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border/40">
-                      {lunchMenu.map((dayItem, index) => (
-                        <motion.tr
-                          key={index}
-                          whileHover={{ backgroundColor: "rgba(0,0,0,0.02)" }}
-                          className="transition-colors hover:bg-muted/20"
-                        >
-                          <td className="p-3 md:p-5 font-semibold text-primary text-sm md:text-base">{dayItem.day}</td>
-                          <td className="p-3 md:p-5 text-center px-2 md:px-4">
-                            <span className={`inline-flex items-center justify-center ${dayItem.roti.length > 2 ? 'px-2 md:px-3 py-1 rounded-full text-[10px] md:text-xs font-medium w-auto' : 'w-6 h-6 md:w-8 md:h-8 rounded-full text-[10px] md:text-xs'} bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400 shadow-sm`}>
-                              {dayItem.roti}
-                            </span>
-                          </td>
-                          <td className="p-3 md:p-5 font-medium text-sm md:text-base">{dayItem.sabji}</td>
-                          <td className="p-3 md:p-5 text-balance text-sm md:text-base">{dayItem.dal}</td>
-                          <td className="p-3 md:p-5 text-center px-2 md:px-4">
-                            <div className="inline-flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400 text-[10px] md:text-xs shadow-sm">
-                              {dayItem.rice}
-                            </div>
-                          </td>
-                        </motion.tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Dinner Menu & Optional Items Grid */}
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-
-              {/* Desktop View: Dinner Menu Table */}
-              <motion.div variants={item} className="hidden md:flex relative group flex-col h-full">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-secondary to-orange-400 rounded-3xl opacity-20 group-hover:opacity-40 blur transition duration-500" />
-                <div className="relative bg-card rounded-2xl shadow-xl border border-border overflow-hidden flex-1 flex flex-col">
-                  <div className="bg-gradient-to-r from-secondary/5 via-secondary/10 to-transparent p-6 border-b border-border/60">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="p-3 bg-white dark:bg-card rounded-xl shadow-sm ring-1 ring-border">
-                        <span className="text-3xl">🍽️</span>
-                      </div>
-                      <div>
-                        <h2 className="text-2xl font-bold text-foreground">DINNER MENU</h2>
-                        <p className="text-sm text-muted-foreground mt-1">Light & Healthy</p>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center flex-wrap gap-2">
-                      <div className="flex items-center gap-2 text-sm font-medium text-foreground bg-accent/50 px-3 py-1 rounded-full border border-border">
-                        <Clock className="w-3.5 h-3.5 text-secondary" />
-                        <span>7:00 PM - 9:00 PM</span>
-                      </div>
-                      <div className="text-xs font-semibold text-secondary bg-secondary/10 px-2 py-1 rounded">
-                        Only Roti + Sabji
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Mobile Cards (Dinner) - This section is now redundant as combined cards are used */}
-                  {/* <div className="md:hidden grid gap-3 p-4">
-                    {dinnerMenu.map((dayItem, index) => (
-                      <div key={index} className="bg-card/50 rounded-xl p-4 border border-border shadow-sm flex flex-col gap-3">
-                        <div className="flex justify-between items-center pb-2 border-b border-border/40">
-                          <span className="font-bold text-lg text-secondary">{dayItem.day}</span>
-                          <span className="text-xs font-medium bg-secondary/10 text-secondary px-2 py-0.5 rounded">Roti + Sabji</span>
+                  <p className="text-xs text-muted-foreground px-6 pt-4">
+                    We prepare a rotating selection of traditional curries. Here are examples of the daily sabjis we deliver in our tiffins:
+                  </p>
+                  
+                  {/* Mobile Cards (Optional) */}
+                  <div className="md:hidden grid gap-3 p-4">
+                    {optionalItems.map((optItem, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-muted/20 rounded-lg border border-border/50">
+                        <div className="flex flex-col">
+                          <span className="text-xs text-muted-foreground font-semibold uppercase">Sabji</span>
+                          <span className="text-sm font-medium">{optItem.sabji}</span>
                         </div>
-                        <div className="space-y-2">
-                          <div>
-                            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block mb-1">Sabji</span>
-                            <span className="text-sm font-medium">{dayItem.sabji}</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-sm bg-orange-50 dark:bg-orange-950/30 px-3 py-2 rounded-lg border border-orange-100 dark:border-orange-900/50">
-                              <span className="text-orange-700 dark:text-orange-400 font-medium text-xs uppercase">Roti:</span>
-                              <span className="font-bold text-orange-800 dark:text-orange-300">{dayItem.roti}</span>
-                          </div>
+                        <div className="flex flex-col items-end">
+                          <span className="text-xs text-muted-foreground font-semibold uppercase">Roti</span>
+                          <span className="text-xs font-bold bg-green-100 text-green-700 px-2 py-1 rounded-md">{optItem.roti}</span>
                         </div>
                       </div>
                     ))}
-                  </div> */}
+                  </div>
 
-                  {/* Desktop Table (Dinner) */}
-                  <div className="hidden md:flex flex-1 overflow-x-auto">
+                  {/* Desktop Table (Optional) */}
+                  <div className="hidden md:block overflow-x-auto flex-1">
                     <table className="w-full text-left border-collapse h-full">
                       <thead>
                         <tr className="bg-muted/30 text-muted-foreground border-b border-border">
-                          <th className="p-4 font-bold uppercase text-xs tracking-wider">Day</th>
-                          <th className="p-4 font-bold uppercase text-xs tracking-wider text-center">Roti</th>
-                          <th className="p-4 font-bold uppercase text-xs tracking-wider">Sabji</th>
+                          <th className="p-4 font-bold uppercase text-xs tracking-wider text-center w-24">Roti</th>
+                          <th className="p-4 font-bold uppercase text-xs tracking-wider">Special Sabji</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-border/40">
-                        {dinnerMenu && Array.isArray(dinnerMenu) ? dinnerMenu.map((dayItem, index) => (
+                        {optionalItems && Array.isArray(optionalItems) ? optionalItems.map((optItem, index) => (
                           <motion.tr
                             key={index}
                             className="transition-colors hover:bg-muted/20"
                           >
-                            <td className="p-4 font-semibold text-secondary">{dayItem.day}</td>
                             <td className="p-4 text-center">
-                              <span className={`inline-flex items-center justify-center ${dayItem.roti.length > 2 ? 'px-2 py-1 rounded-full text-[10px] font-medium w-auto' : 'w-6 h-6 rounded-full text-[10px]'} bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400 shadow-sm`}>
-                                {dayItem.roti}
+                              <span className={`inline-flex items-center justify-center ${optItem.roti.length > 2 ? 'px-2 py-1 rounded-full text-[10px] font-medium w-auto' : 'w-6 h-6 rounded-full text-[10px]'} bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400 shadow-sm`}>
+                                {optItem.roti}
                               </span>
                             </td>
-                            <td className="p-4 font-medium">{dayItem.sabji}</td>
+                            <td className="p-4 font-medium text-foreground">{optItem.sabji}</td>
                           </motion.tr>
-                        )) : <tr><td colSpan={3} className="p-4 text-center">No dinner data available.</td></tr>}
+                        )) : <tr><td colSpan={2} className="p-4 text-center">No optional items data.</td></tr>}
                       </tbody>
                     </table>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Optional Items & Notes */}
-              <div className="space-y-8">
-                {/* Optional Items */}
-                <motion.div variants={item} className="relative group">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-green-500 to-emerald-400 rounded-3xl opacity-20 group-hover:opacity-40 blur transition duration-500" />
-                  <div className="relative bg-card rounded-2xl shadow-xl border border-border overflow-hidden">
-                    <div className="bg-gradient-to-r from-green-500/5 via-green-500/10 to-transparent p-6 border-b border-border/60">
-                      <div className="flex items-center gap-4">
-                        <div className="p-2.5 bg-white dark:bg-card rounded-lg shadow-sm ring-1 ring-border">
-                          <span className="text-2xl">🌟</span>
-                        </div>
-                        <h2 className="text-xl font-bold text-green-700 dark:text-green-400">OPTIONAL ITEMS</h2>
-                      </div>
-                    </div>
-                    {/* Mobile Cards (Optional) */}
-                    <div className="md:hidden grid gap-3 p-4">
-                      {optionalItems.map((optItem, index) => (
-                        <div key={index} className="flex items-center justify-between p-3 bg-muted/20 rounded-lg border border-border/50">
-                          <div className="flex flex-col">
-                            <span className="text-xs text-muted-foreground font-semibold uppercase">Sabji</span>
-                            <span className="text-sm font-medium">{optItem.sabji}</span>
-                          </div>
-                          <div className="flex flex-col items-end">
-                            <span className="text-xs text-muted-foreground font-semibold uppercase">Roti</span>
-                            <span className="text-xs font-bold bg-green-100 text-green-700 px-2 py-1 rounded-md">{optItem.roti}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Desktop Table (Optional) */}
-                    <div className="hidden md:block overflow-x-auto">
-                      <table className="w-full text-left border-collapse">
-                        <thead>
-                          <tr className="bg-muted/30 text-muted-foreground border-b border-border">
-                            <th className="p-4 font-bold uppercase text-xs tracking-wider text-center w-24">Roti</th>
-                            <th className="p-4 font-bold uppercase text-xs tracking-wider">Special Sabji</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-border/40">
-                          {optionalItems && Array.isArray(optionalItems) ? optionalItems.map((optItem, index) => (
-                            <motion.tr
-                              key={index}
-                              className="transition-colors hover:bg-muted/20"
-                            >
-                              <td className="p-4 text-center">
-                                <span className={`inline-flex items-center justify-center ${optItem.roti.length > 2 ? 'px-2 py-1 rounded-full text-[10px] font-medium w-auto' : 'w-6 h-6 rounded-full text-[10px]'} bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400 shadow-sm`}>
-                                  {optItem.roti}
-                                </span>
-                              </td>
-                              <td className="p-4 font-medium text-foreground">{optItem.sabji}</td>
-                            </motion.tr>
-                          )) : <tr><td colSpan={2} className="p-4 text-center">No optional items data.</td></tr>}
-                        </tbody>
-                      </table>
-                    </div>
+              {/* Notes Card */}
+              <motion.div
+                variants={item}
+                className="bg-accent/40 border border-accent rounded-3xl p-8 relative overflow-hidden h-full flex flex-col justify-center"
+              >
+                <div className="flex items-start gap-4 z-10 relative">
+                  <div className="p-2 bg-background rounded-full border border-border shadow-sm">
+                    <Info className="w-5 h-5 text-primary" />
                   </div>
-                </motion.div>
-
-                {/* Notes Card */}
-                <motion.div
-                  variants={item}
-                  className="bg-accent/40 border border-accent rounded-2xl p-6 relative overflow-hidden"
-                >
-                  <div className="flex items-start gap-4 z-10 relative">
-                    <div className="p-2 bg-background rounded-full border border-border shadow-sm">
-                      <Info className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-foreground mb-3">Important Notes</h3>
-                      <ul className="space-y-2 text-sm text-muted-foreground">
-                        <li className="flex items-start gap-2">
-                          <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                          <span className="leading-snug">Roti is included in all daily meals.</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                          <span className="leading-snug">Lunch is a full meal with Dal & Rice.</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                          <span className="leading-snug">Dinner is lighter: only Roti & Sabji.</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                          <span className="leading-snug">Jain food is available upon request.</span>
-                        </li>
-                      </ul>
-                    </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-foreground mb-4">Important Notes</h3>
+                    <ul className="space-y-3 text-sm text-muted-foreground">
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                        <span className="leading-snug">Roti is included in all daily meals.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                        <span className="leading-snug">Lunch is a full meal with Dal & Rice.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                        <span className="leading-snug">Dinner is lighter: only Roti & Sabji.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                        <span className="leading-snug">Jain food is available upon request.</span>
+                      </li>
+                    </ul>
                   </div>
-                </motion.div>
-              </div>
+                </div>
+              </motion.div>
+
             </div>
 
           </motion.div>

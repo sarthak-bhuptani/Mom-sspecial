@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import heroFood from "@/assets/hero-food.jpg";
 import Testimonials from "@/components/Testimonials";
 import { motion } from "framer-motion";
-import TodaysMenu from "@/components/TodaysMenu";
 
 import heroFoodDark from "@/assets/hero-food-dark.png";
+import StatsSection from "@/components/StatsSection";
+import FAQSection from "@/components/FAQSection";
 
 const Home = () => {
   const whatsappMessage = encodeURIComponent(
@@ -115,8 +116,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Today's Special Menu Widget */}
-      <TodaysMenu />
+      {/* <StatsSection /> */}
 
       {/* Why Choose Us */}
       <section className="py-20 md:py-28 bg-cream">
@@ -208,6 +208,8 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <FAQSection />
 
       {/* CTA Section */}
       <section className="py-20 gradient-hero">

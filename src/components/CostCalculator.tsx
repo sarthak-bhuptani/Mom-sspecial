@@ -3,33 +3,45 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { CalendarDays, Utensils, IndianRupee, Plus } from "lucide-react";
+import { CalendarDays, Utensils, IndianRupee, Plus, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 
 const CostCalculator = () => {
     const [days, setDays] = useState([26]);
     const [isFullMeal, setIsFullMeal] = useState(false); // false = Basic, true = Full
+    const [mealsPerDay, setMealsPerDay] = useState<1 | 2>(1); // 1 = 1 meal/day, 2 = 2 meals/day
     const [addons, setAddons] = useState({
         extraRoti: false,
         extraSabji: false,
+        extraThepla: false,
+        extraBhakhri: false,
+        extraRotlo: false,
     });
 
     // Prices
-    const BASIC_PRICE = 50;
-    const FULL_PRICE = 70;
+    const BASIC_PRICE = 60;
+    const FULL_PRICE = 80;
 
     // Add-on Prices
     const EXTRA_ROTI_PRICE = 5;
     const EXTRA_SABJI_PRICE = 30;
+    const EXTRA_THEPLA_PRICE = 8;
+    const EXTRA_BHAKHRI_PRICE = 15;
+    const EXTRA_ROTLO_PRICE = 20;
 
     const basePrice = isFullMeal ? FULL_PRICE : BASIC_PRICE;
 
     // Calculate total per meal cost
     const pricePerMeal = basePrice +
         (addons.extraRoti ? EXTRA_ROTI_PRICE : 0) +
-        (addons.extraSabji ? EXTRA_SABJI_PRICE : 0);
+        (addons.extraSabji ? EXTRA_SABJI_PRICE : 0) +
+        (addons.extraThepla ? EXTRA_THEPLA_PRICE : 0) +
+        (addons.extraBhakhri ? EXTRA_BHAKHRI_PRICE : 0) +
+        (addons.extraRotlo ? EXTRA_ROTLO_PRICE : 0);
 
-    const totalCost = days[0] * pricePerMeal;
+    const totalCost = days[0] * pricePerMeal * mealsPerDay;
+    
+    const hasAddons = addons.extraRoti || addons.extraSabji || addons.extraThepla || addons.extraBhakhri || addons.extraRotlo;
 
     const toggleAddon = (key: keyof typeof addons) => {
         setAddons(prev => ({ ...prev, [key]: !prev[key] }));
@@ -77,6 +89,29 @@ const CostCalculator = () => {
                                     </div>
                                 </div>
 
+                                {/* Meals per Day Switch */}
+                                <div className="space-y-4">
+                                    <div className="flex items-center justify-between">
+                                        <Label htmlFor="meals-per-day" className="text-lg font-semibold flex items-center gap-2 text-foreground">
+                                            <Clock className="w-5 h-5 text-primary" />
+                                            Meals per Day
+                                        </Label>
+                                        <span className="text-sm font-medium text-muted-foreground">
+                                            {mealsPerDay === 1 ? "1 Meal (Lunch or Dinner)" : "2 Meals (Lunch & Dinner)"}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center justify-between bg-card p-4 rounded-xl border border-input shadow-sm">
+                                        <span className={`text-sm font-medium transition-colors ${mealsPerDay === 1 ? "text-primary" : "text-muted-foreground"}`}>1 Meal</span>
+                                        <Switch
+                                            id="meals-per-day"
+                                            checked={mealsPerDay === 2}
+                                            onCheckedChange={(checked) => setMealsPerDay(checked ? 2 : 1)}
+                                            className="data-[state=checked]:bg-primary"
+                                        />
+                                        <span className={`text-sm font-medium transition-colors ${mealsPerDay === 2 ? "text-primary" : "text-muted-foreground"}`}>2 Meals</span>
+                                    </div>
+                                </div>
+
                                 {/* Add-ons Section */}
                                 <div className="space-y-4">
                                     <Label className="text-lg font-semibold flex items-center gap-2 text-foreground">
@@ -101,6 +136,60 @@ const CostCalculator = () => {
                                                 </div>
                                             </div>
                                             <span className="text-sm font-semibold text-muted-foreground">+₹{EXTRA_ROTI_PRICE}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center space-x-3">
+                                                <Checkbox
+                                                    id="extra-thepla"
+                                                    checked={addons.extraThepla}
+                                                    onCheckedChange={() => toggleAddon('extraThepla')}
+                                                />
+                                                <div className="grid gap-1.5 leading-none">
+                                                    <label
+                                                        htmlFor="extra-thepla"
+                                                        className="text-sm font-medium leading-none text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                    >
+                                                        Extra Thepla
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <span className="text-sm font-semibold text-muted-foreground">+₹{EXTRA_THEPLA_PRICE}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center space-x-3">
+                                                <Checkbox
+                                                    id="extra-bhakhri"
+                                                    checked={addons.extraBhakhri}
+                                                    onCheckedChange={() => toggleAddon('extraBhakhri')}
+                                                />
+                                                <div className="grid gap-1.5 leading-none">
+                                                    <label
+                                                        htmlFor="extra-bhakhri"
+                                                        className="text-sm font-medium leading-none text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                    >
+                                                        Extra Bhakhri
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <span className="text-sm font-semibold text-muted-foreground">+₹{EXTRA_BHAKHRI_PRICE}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center space-x-3">
+                                                <Checkbox
+                                                    id="extra-rotlo"
+                                                    checked={addons.extraRotlo}
+                                                    onCheckedChange={() => toggleAddon('extraRotlo')}
+                                                />
+                                                <div className="grid gap-1.5 leading-none">
+                                                    <label
+                                                        htmlFor="extra-rotlo"
+                                                        className="text-sm font-medium leading-none text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                    >
+                                                        Extra Rotlo
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <span className="text-sm font-semibold text-muted-foreground">+₹{EXTRA_ROTLO_PRICE}</span>
                                         </div>
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center space-x-3">
@@ -168,27 +257,31 @@ const CostCalculator = () => {
                                 </div>
 
                                 <p className="text-primary-foreground/80 text-sm mb-8 relative z-10">
-                                    for {days[0]} days of {isFullMeal ? "Full Thali" : "Basic Tiffin"}
-                                    {(addons.extraRoti || addons.extraSabji) && " + Add-ons"}
+                                    for {days[0]} days of {isFullMeal ? "Full Thali" : "Basic Tiffin"} ({mealsPerDay} meal{mealsPerDay > 1 ? "s" : ""}/day)
+                                    {hasAddons && " + Add-ons"}
                                 </p>
 
                                 <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-left relative z-10 space-y-2">
                                     <div className="flex justify-between text-sm">
                                         <span className="opacity-80">Base Plan:</span>
-                                        <span className="font-bold">₹{basePrice}</span>
+                                        <span className="font-bold">₹{basePrice} / meal</span>
                                     </div>
-                                    {(addons.extraRoti || addons.extraSabji) && (
+                                    {hasAddons && (
                                         <div className="flex justify-between text-sm">
                                             <span className="opacity-80">Extras:</span>
                                             <span className="font-bold">
-                                                ₹{pricePerMeal - basePrice}
+                                                ₹{pricePerMeal - basePrice} / meal
                                             </span>
                                         </div>
                                     )}
                                     <div className="my-2 border-t border-white/20"></div>
+                                    <div className="flex justify-between text-sm">
+                                        <span className="opacity-80">Total per Meal:</span>
+                                        <span className="font-semibold">₹{pricePerMeal}</span>
+                                    </div>
                                     <div className="flex justify-between text-base">
-                                        <span className="opacity-90 font-medium">Total per Meal:</span>
-                                        <span className="font-bold">₹{pricePerMeal}</span>
+                                        <span className="opacity-90 font-medium">Daily Cost ({mealsPerDay} meal{mealsPerDay > 1 ? "s" : ""}):</span>
+                                        <span className="font-bold">₹{pricePerMeal * mealsPerDay}</span>
                                     </div>
                                 </div>
                             </div>

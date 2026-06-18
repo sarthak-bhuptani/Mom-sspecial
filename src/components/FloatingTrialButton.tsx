@@ -2,13 +2,17 @@ import { Utensils } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 
-const FloatingTrialButton = () => {
+interface FloatingTrialButtonProps {
+    isChatOpen: boolean;
+}
+
+const FloatingTrialButton = ({ isChatOpen }: FloatingTrialButtonProps) => {
     const [isVisible, setIsVisible] = useState(false);
 
     // Constants
     const WHATSAPP_NUMBER = "917436059291";
     const TRIAL_MESSAGE = encodeURIComponent(
-        "Hi, I want to book a Trial Meal for today. (₹50 Tiffin)"
+        "Hi, I want to book a Trial Meal for today. (₹60 Tiffin)"
     );
     const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${TRIAL_MESSAGE}`;
 
@@ -28,7 +32,7 @@ const FloatingTrialButton = () => {
 
     return (
         <AnimatePresence>
-            {isVisible && (
+            {isVisible && !isChatOpen && (
                 <motion.a
                     href={WHATSAPP_URL}
                     target="_blank"
@@ -37,7 +41,7 @@ const FloatingTrialButton = () => {
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: 100, opacity: 0 }}
                     transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                    className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-primary text-primary-foreground 
+                    className="fixed bottom-6 left-6 md:left-1/2 md:-translate-x-1/2 z-50 bg-primary text-primary-foreground 
                      px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 
                      transition-all duration-300 flex items-center gap-3 group border-2 border-white/20"
                 >
@@ -46,7 +50,7 @@ const FloatingTrialButton = () => {
                     </div>
                     <div className="flex flex-col items-start leading-none">
                         <span className="text-xs font-medium opacity-90 uppercase tracking-wider">Book Trial Meal</span>
-                        <span className="text-lg font-bold">₹50 Only</span>
+                        <span className="text-lg font-bold">₹60 Only</span>
                     </div>
                     {/* Pulse Effect */}
                     <span className="absolute -top-1 -right-1 flex h-3 w-3">

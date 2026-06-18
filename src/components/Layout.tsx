@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import FloatingWhatsApp from "./FloatingWhatsApp";
@@ -9,13 +9,15 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps) => {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
-      <FloatingWhatsApp />
-      <FloatingTrialButton />
+      <FloatingWhatsApp isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
+      <FloatingTrialButton isChatOpen={isChatOpen} />
     </div>
   );
 };

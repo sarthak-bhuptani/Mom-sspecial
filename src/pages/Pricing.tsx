@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Check, MessageCircle } from "lucide-react";
@@ -5,56 +6,60 @@ import { Button } from "@/components/ui/button";
 import CostCalculator from "@/components/CostCalculator";
 
 const Pricing = () => {
+  const [mealsPerDay, setMealsPerDay] = useState<1 | 2>(1);
+
   const plans = [
     {
-      name: "Basic Tiffin",
-      price: "₹50",
-      period: "per meal",
-      description: "Light meal with essential items",
+      name: "Full Tiffin",
+      price: mealsPerDay === 1 ? "₹80" : "₹160",
+      period: mealsPerDay === 1 ? "per meal" : "per day (2 meals)",
+      description: mealsPerDay === 1 ? "Complete wholesome meal" : "Two complete wholesome meals daily",
       features: [
-        "Roti included",
+        "6 Roti included",
         "Sabji included",
-        "Salad included",
-        "No Rice/Dal",
+        "Dal included",
+        "Rice included",
+        mealsPerDay === 1 ? "Lunch or Dinner" : "Both Lunch & Dinner daily",
       ],
       popular: false,
     },
     {
-      name: "Full Tiffin",
-      price: "₹70",
-      period: "per meal",
-      description: "Complete wholesome meal",
+      name: "Basic Tiffin",
+      price: mealsPerDay === 1 ? "₹60" : "₹120",
+      period: mealsPerDay === 1 ? "per meal" : "per day (2 meals)",
+      description: mealsPerDay === 1 ? "Light meal with essential items" : "Two light meals daily",
       features: [
-        "Roti included",
+        "6 Roti included",
         "Sabji included",
-        "Dal included",
-        "Rice included",
+        "Salad included",
+        "No Rice/Dal",
+        mealsPerDay === 1 ? "Lunch or Dinner" : "Both Lunch & Dinner daily",
       ],
       popular: true,
     },
     {
       name: "Monthly Basic",
-      price: "₹1,500",
+      price: mealsPerDay === 1 ? "₹1,800" : "₹3,600",
       period: "per month",
-      description: "Daily Basic Tiffin for 30 days",
+      description: mealsPerDay === 1 ? "Daily Basic Tiffin for 30 days" : "Daily Basic Tiffins for 30 days",
       features: [
-        "Roti + Sabji daily",
+        "6 Roti + Sabji daily",
         "30 days service",
         "Includes Sundays",
-        "Perfect for dinner",
+        mealsPerDay === 1 ? "Lunch or Dinner" : "Both Lunch & Dinner daily",
       ],
       popular: false,
     },
     {
       name: "Monthly Full",
-      price: "₹2,100",
+      price: mealsPerDay === 1 ? "₹2,400" : "₹4,800",
       period: "per month",
-      description: "Daily Full Tiffin for 30 days",
+      description: mealsPerDay === 1 ? "Daily Full Tiffin for 30 days" : "Daily Full Tiffins for 30 days",
       features: [
-        "Full Thali daily",
+        "Full Thali (6 Roti + Dal/Rice)",
         "30 days service",
-        "Lunch or Dinner",
         "Best value",
+        mealsPerDay === 1 ? "Lunch or Dinner" : "Both Lunch & Dinner daily",
       ],
       popular: false,
     },
@@ -71,7 +76,7 @@ const Pricing = () => {
         <title>Pricing Plans - Mom's Special | Affordable Tiffin Service</title>
         <meta
           name="description"
-          content="Affordable tiffin pricing plans starting from ₹2,000/month. Daily, weekly, and monthly options available. Contact us for exact pricing."
+          content="Affordable tiffin pricing plans starting from ₹1,800/month. Daily, weekly, and monthly options available. Contact us for exact pricing."
         />
       </Helmet>
 
@@ -95,14 +100,43 @@ const Pricing = () => {
       {/* Pricing Cards */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
+          {/* Meals Per Day Toggle */}
+          <div className="flex justify-center mb-12">
+            <div className="bg-muted p-1.5 rounded-2xl inline-flex items-center border border-border shadow-inner">
+              <button
+                onClick={() => setMealsPerDay(1)}
+                className={`px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                  mealsPerDay === 1
+                    ? "bg-primary text-primary-foreground shadow-md"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                1 Meal / Day
+                <span className="block text-[10px] font-normal opacity-80 mt-0.5">Lunch or Dinner</span>
+              </button>
+              <button
+                onClick={() => setMealsPerDay(2)}
+                className={`px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                  mealsPerDay === 2
+                    ? "bg-primary text-primary-foreground shadow-md"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                2 Meals / Day
+                <span className="block text-[10px] font-normal opacity-80 mt-0.5">Lunch & Dinner</span>
+              </button>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {plans.map((plan) => (
               <div
                 key={plan.name}
-                className={`relative bg-card rounded-2xl p-6 ${plan.popular
-                  ? "ring-2 ring-primary shadow-glow"
-                  : "shadow-card"
-                  } hover:shadow-soft transition-all duration-300 hover:-translate-y-1`}
+                className={`relative bg-card rounded-2xl p-6 transition-all duration-300 ${
+                  plan.popular
+                    ? "ring-2 ring-primary shadow-glow md:scale-105 z-10 hover:scale-[1.08] hover:-translate-y-2"
+                    : "shadow-card hover:-translate-y-2 hover:scale-[1.02]"
+                }`}
               >
                 {plan.popular && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground text-xs font-semibold rounded-full">
@@ -145,21 +179,56 @@ const Pricing = () => {
             ))}
           </div>
 
-          <div className="text-center mt-12 p-8 bg-cream rounded-2xl max-w-3xl mx-auto">
-            <h3 className="text-xl font-bold text-foreground mb-4">
-              Need Custom Pricing?
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              Prices may vary based on your location, meal preferences, and
-              special requirements. Contact us for an exact quote tailored to
-              your needs.
-            </p>
-            <Button variant="whatsapp" size="lg" asChild>
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-5 h-5" />
-                Contact for Exact Pricing
-              </a>
-            </Button>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-16">
+            {/* Custom Pricing Card */}
+            <div className="bg-cream p-8 rounded-3xl border border-primary/10 shadow-sm flex flex-col justify-between items-center text-center">
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-4">
+                  Need Custom Pricing?
+                </h3>
+                <p className="text-muted-foreground mb-6 text-sm">
+                  Prices may vary based on your location, meal preferences, and
+                  special requirements. Contact us for an exact quote tailored to
+                  your needs.
+                </p>
+              </div>
+              <Button variant="whatsapp" size="lg" asChild className="w-full sm:w-auto mt-auto">
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="w-5 h-5" />
+                  Contact for Custom Quote
+                </a>
+              </Button>
+            </div>
+
+            {/* Special Orders Card */}
+            <div className="bg-card p-8 rounded-3xl border border-border shadow-sm flex flex-col justify-between">
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-2 text-center">
+                  Special Orders
+                </h3>
+                <p className="text-muted-foreground text-center mb-6 text-sm">
+                  Place separate individual orders or add extras to your tiffin
+                </p>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center pb-2 border-b border-border">
+                    <span className="font-semibold text-foreground">Roti</span>
+                    <span className="font-bold text-primary">₹5</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-2 border-b border-border">
+                    <span className="font-semibold text-foreground">Thepla</span>
+                    <span className="font-bold text-primary">₹8</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-2 border-b border-border">
+                    <span className="font-semibold text-foreground">Bhakhri</span>
+                    <span className="font-bold text-primary">₹15</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold text-foreground">Rotlo</span>
+                    <span className="font-bold text-primary">₹20</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
