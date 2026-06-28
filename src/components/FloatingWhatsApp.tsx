@@ -44,8 +44,8 @@ const FloatingWhatsApp = ({ isOpen, setIsOpen }: FloatingWhatsAppProps) => {
   ];
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-      
+    <div className="fixed bottom-20 md:bottom-6 right-4 left-4 md:left-auto md:right-6 z-[120] flex flex-col items-end">
+
       {/* Simulated Chat Window */}
       <AnimatePresence>
         {isOpen && (
@@ -54,7 +54,7 @@ const FloatingWhatsApp = ({ isOpen, setIsOpen }: FloatingWhatsAppProps) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 30 }}
             transition={{ type: "spring", stiffness: 260, damping: 25 }}
-            className="w-80 sm:w-85 bg-card rounded-2xl shadow-2xl border border-border/80 overflow-hidden mb-4 select-none"
+            className="w-full md:w-85 bg-card rounded-2xl shadow-2xl border border-border/80 overflow-hidden mb-4 select-none"
             style={{ originX: 1, originY: 1 }}
           >
             {/* Header */}
@@ -72,8 +72,8 @@ const FloatingWhatsApp = ({ isOpen, setIsOpen }: FloatingWhatsAppProps) => {
                   </span>
                 </div>
               </div>
-              <button 
-                onClick={handleToggle} 
+              <button
+                onClick={handleToggle}
                 className="p-1 rounded-full hover:bg-white/10 transition-colors"
                 aria-label="Close Chat"
               >
@@ -133,7 +133,7 @@ const FloatingWhatsApp = ({ isOpen, setIsOpen }: FloatingWhatsAppProps) => {
       </AnimatePresence>
 
       {/* Helper Tooltip Bubble */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {showTooltip && !isOpen && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9, x: 20 }}
@@ -155,22 +155,38 @@ const FloatingWhatsApp = ({ isOpen, setIsOpen }: FloatingWhatsAppProps) => {
             </button>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
-      {/* Main Trigger Floating Button */}
-      <motion.button
-        onClick={handleToggle}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className={`bg-[#25D366] hover:bg-[#20ba59] text-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center ${!isOpen ? "animate-bounce-soft" : ""}`}
-        aria-label={isOpen ? "Close Chat Menu" : "Chat on WhatsApp"}
-      >
-        {isOpen ? (
-          <X className="w-7 h-7" />
-        ) : (
-          <MessageCircle className="w-7 h-7 fill-white" />
+      {/* Main Trigger Floating Button with Pulsing Glow Ring */}
+      <div className="relative flex items-center justify-center">
+        {!isOpen && (
+          <motion.div
+            animate={{
+              scale: [1, 1.4, 1],
+              opacity: [0.5, 0, 0.5],
+            }}
+            transition={{
+              duration: 2.4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute inset-0 bg-[#25D366]/40 rounded-full z-0 pointer-events-none"
+          />
         )}
-      </motion.button>
+        <motion.button
+          onClick={handleToggle}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-[#25D366] hover:bg-[#20ba59] text-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center relative z-10 cursor-pointer"
+          aria-label={isOpen ? "Close Chat Menu" : "Chat on WhatsApp"}
+        >
+          {isOpen ? (
+            <X className="w-7 h-7" />
+          ) : (
+            <MessageCircle className="w-7 h-7 fill-white" />
+          )}
+        </motion.button>
+      </div>
 
     </div>
   );

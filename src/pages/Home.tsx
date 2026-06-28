@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, MessageCircle, Utensils, Leaf, Clock, Heart } from "lucide-react";
+import { MessageCircle, Leaf, Sparkles, Flame, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroFood from "@/assets/hero-food.jpg";
 import Testimonials from "@/components/Testimonials";
@@ -7,36 +7,12 @@ import { motion } from "framer-motion";
 
 import heroFoodDark from "@/assets/hero-food-dark.png";
 import StatsSection from "@/components/StatsSection";
-import FAQSection from "@/components/FAQSection";
 
 const Home = () => {
   const whatsappMessage = encodeURIComponent(
     "Hello, I am interested in your tiffin service.\nArea:\nMeal type:"
   );
   const whatsappUrl = `https://wa.me/917436059291?text=${whatsappMessage}`;
-
-  const benefits = [
-    {
-      icon: <Utensils className="w-8 h-8" />,
-      title: "Home-Style Cooking",
-      description: "Authentic recipes just like mom makes, fresh daily",
-    },
-    {
-      icon: <Leaf className="w-8 h-8" />,
-      title: "Fresh Ingredients",
-      description: "Only the freshest vegetables and quality ingredients",
-    },
-    {
-      icon: <Clock className="w-8 h-8" />,
-      title: "On-Time Delivery",
-      description: "Hot meals delivered right on schedule, every day",
-    },
-    {
-      icon: <Heart className="w-8 h-8" />,
-      title: "Made with Love",
-      description: "Every meal prepared with care and hygiene",
-    },
-  ];
 
   const steps = [
     {
@@ -77,7 +53,7 @@ const Home = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 container mx-auto px-4 pt-20 pb-24 md:pb-32">
+        <div className="relative z-10 container mx-auto px-4 pt-36 sm:pt-40 md:pt-32 lg:pt-20 pb-24 md:pb-32">
           <div className="max-w-2xl">
             <span className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-6 animate-fade-in">
               🍱 Local Tiffin Service
@@ -118,42 +94,94 @@ const Home = () => {
 
       {/* <StatsSection /> */}
 
-      {/* Why Choose Us */}
+      {/* Chef's Corner / Behind the Scenes */}
       <section className="py-20 md:py-28 bg-cream">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <span className="text-primary font-medium">Why Choose Us</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2">
-              The Mom's Special Difference
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, index) => (
-              <motion.div
-                key={benefit.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="bg-background p-8 rounded-2xl shadow-card hover:shadow-soft transition-all duration-300 text-center group"
-              >
-                <div className="w-16 h-16 bg-accent rounded-xl flex items-center justify-center text-secondary mx-auto mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                  {benefit.icon}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            {/* Left Content Column */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-5 space-y-6"
+            >
+              <span className="text-primary font-medium tracking-wide uppercase">Behind the Scenes</span>
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground leading-tight">
+                Chef's Corner: Made with <span className="text-primary">Hygiene</span> & Care
+              </h2>
+              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                We believe that food should not only taste good but should also be cooked under the highest standards of cleanliness. Here is a glimpse of how we prepare your meals daily.
+              </p>
+              
+              {/* Trust badges */}
+              <div className="grid grid-cols-2 gap-4 pt-4">
+                <div className="bg-card p-4 rounded-xl border border-border/60">
+                  <div className="text-2xl font-bold text-primary">100%</div>
+                  <div className="text-xs text-muted-foreground mt-1">Preservative Free</div>
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  {benefit.title}
-                </h3>
-                <p className="text-muted-foreground">{benefit.description}</p>
-              </motion.div>
-            ))}
+                <div className="bg-card p-4 rounded-xl border border-border/60">
+                  <div className="text-2xl font-bold text-secondary">Daily</div>
+                  <div className="text-xs text-muted-foreground mt-1">Fresh Ingredients</div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right Pillars Column */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="lg:col-span-7 space-y-6"
+            >
+              {/* Pillar 1 */}
+              <div className="bg-card p-6 rounded-2xl shadow-card border border-border flex items-start gap-5 hover:-translate-y-1 transition-all duration-300">
+                <div className="p-3.5 bg-primary/10 rounded-xl text-primary flex-shrink-0">
+                  <Leaf className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base sm:text-lg text-foreground mb-1">
+                    Fresh Daily Sourcing
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    We select fresh vegetables from the local market every morning. No frozen, canned, or pre-cut ingredients are used in our kitchen.
+                  </p>
+                </div>
+              </div>
+
+              {/* Pillar 2 */}
+              <div className="bg-card p-6 rounded-2xl shadow-card border border-border flex items-start gap-5 hover:-translate-y-1 transition-all duration-300">
+                <div className="p-3.5 bg-secondary/10 rounded-xl text-secondary flex-shrink-0">
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base sm:text-lg text-foreground mb-1">
+                    Mineral Water & Satvik Prep
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    All vegetables are triple-washed in clean saline water before cutting. Cooking is done exclusively with purified mineral water and home-ground spices.
+                  </p>
+                </div>
+              </div>
+
+              {/* Pillar 3 */}
+              <div className="bg-card p-6 rounded-2xl shadow-card border border-border flex items-start gap-5 hover:-translate-y-1 transition-all duration-300">
+                <div className="p-3.5 bg-primary/10 rounded-xl text-primary flex-shrink-0">
+                  <Flame className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base sm:text-lg text-foreground mb-1">
+                    Spill-Proof Hot Packing
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    Food is packaged immediately in clean, food-grade heat-retaining containers. Our tiffins are leak-proof to ensure they reach you hot and tidy.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
@@ -209,7 +237,6 @@ const Home = () => {
         </div>
       </section>
 
-      <FAQSection />
 
       {/* CTA Section */}
       <section className="py-20 gradient-hero">

@@ -80,7 +80,7 @@ const Contact = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="pt-28 md:pt-32 pb-12 md:pb-16 bg-muted/30 dark:bg-muted/10">
+      <section className="pt-36 sm:pt-40 md:pt-32 pb-12 md:pb-16 bg-muted/30 dark:bg-muted/10">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <span className="text-primary font-medium">Contact Us</span>

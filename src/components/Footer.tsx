@@ -83,10 +83,18 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-cream/20 dark:border-white/20 mt-10 pt-6 text-center">
+        <div className="border-t border-cream/20 dark:border-white/20 mt-10 pt-6 text-center flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-cream/60 dark:text-white/60 text-sm">
-            © {new Date().getFullYear()} Mom's Special. Made with by Sarthak for homestyle food lovers.
+            © {new Date().getFullYear()} Mom's Special. All rights reserved.
           </p>
+          <a
+            href="https://g.page/r/Cbsj8S0lPPJvEBM/review"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-cream/70 hover:text-primary transition-colors flex items-center gap-1.5 font-semibold"
+          >
+            ⭐⭐⭐⭐⭐ Rate us on Google
+          </a>
         </div>
       </div>
     </footer>

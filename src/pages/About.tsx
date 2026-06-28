@@ -41,7 +41,7 @@ const About = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-cream to-orange-50 dark:from-background dark:to-muted relative overflow-hidden">
+      <section className="pt-36 sm:pt-40 md:pt-32 pb-20 bg-gradient-to-br from-cream to-orange-50 dark:from-background dark:to-muted relative overflow-hidden">
         {/* Decorative Circles */}
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
