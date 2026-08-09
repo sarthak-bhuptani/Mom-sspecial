@@ -70,7 +70,7 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
                 <span className="text-cream/80 dark:text-white/80">
-                  Sector-6A, Block No 431/2, <br />Nr. Ambaji Mata Temple, Gandhinagar
+                  Sector-3B, Block No 1319/1, <br />Gandhinagar
                 </span>
               </li>
               <li className="flex items-center gap-3">

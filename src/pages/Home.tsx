@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 import heroFoodDark from "@/assets/hero-food-dark.png";
 import StatsSection from "@/components/StatsSection";
+import DeliveryAreas from "@/components/DeliveryAreas";
 
 const Home = () => {
   const whatsappMessage = encodeURIComponent(
@@ -65,7 +66,7 @@ const Home = () => {
               Experience the authentic taste of Ghar ka Khana. Pure, hygienic, and prepared with a mother's love.
             </p>
             <p className="text-base text-white/70 mb-8 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
-              📍 Serving Gandhinagar Sector 6, 7 & 6A • 100% Pure Veg
+              📍 Serving Gandhinagar Sectors 6, 6A, 7, 2 & 3 • 100% Pure Veg
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
               <Button variant="whatsapp" size="xl" asChild>
@@ -237,6 +238,8 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Delivery Areas Section */}
+      <DeliveryAreas />
 
       {/* CTA Section */}
       <section className="py-20 gradient-hero">

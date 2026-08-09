@@ -4,44 +4,47 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 const Testimonials = () => {
-    const reviews = [
-        {
-            name: "Rahul Mehta",
-            role: "Student at DA-IICT",
-            location: "Sector 7, Gandhinagar",
-            content: "Living away from home, I missed my mom's cooking the most. 'Mom's Special' literally filled that void. The Dal Dhokli on Sundays is absolutely delicious, feels just like home!",
-            rating: 5,
-        },
-        {
-            name: "Priya Patel",
-            role: "Bank Officer",
-            location: "Sector 6, Gandhinagar",
-            content: "Most tiffin services are too oily or spicy. This one is perfect. It's light, healthy, and the Bajri no Rotlo on Saturdays is a must-try. Very consistent taste!",
-            rating: 5,
-        },
-        {
-            name: "Amit Shah",
-            role: "Software Engineer",
-            location: "Infocity, Gandhinagar",
-            content: "Hygiene was my biggest concern, but after ordering for a month, I'm completely satisfied. Clean containers, hot delivery, and super easy contact via WhatsApp.",
-            rating: 5,
-        },
-        {
-            name: "Sonal Vyas",
-            role: "IT Professional",
-            location: "TCS Garima Park",
-            content: "The monthly basic plan is extremely cost-effective. The food is delivered right on time at my PG, and their rotis are always soft and fresh. Worth every rupee!",
-            rating: 5,
-        },
-        {
-            name: "Jayesh Darji",
-            role: "GPSC Aspirant",
-            location: "Sector 22, Gandhinagar",
-            content: "Preparing for exams leaves no time for cooking. Mom's Special tiffins have been a lifesaver. Wholesome home food that keeps me energetic all day without making me feel heavy.",
-            rating: 5,
-        },
-    ];
+    const reviews: any[] = [];
+  // Google reviews (static)
+  const googleReviews = [
+    {
+      name: "Sakshi Panchal",
+      role: "Google Review",
+      source: "google",
+      content: "Sache gar jevu jamvu hoi to chokkas ek var try karjo.. 😊 khub saras anubhav rhayo",
+      rating: 5,
+    },
+    {
+      name: "Madhvi 29",
+      role: "Google Review",
+      source: "google",
+      content: "It's really good taste 😊 it's really amazing 😊pure home made food 😋",
+      rating: 5,
+    },
+    {
+      name: "Heena Goswami",
+      role: "Google Review",
+      source: "google",
+      content: "As the Name of tiffin says it really has the taste like Moms made home food....\nThe quality and quality both are best......",
+      rating: 5,
+    },
+    {
+      name: "Manish Jangid",
+      role: "Google Review",
+      source: "google",
+      content: "Super clean, fresh, and wholesome food. Great portion size and very reliable service. If you miss home-cooked meals in Gandhinagar, this is definitely the right place to get your daily tiffin.",
+      rating: 5,
+    },
+    {
+      name: "Dhruv Shingala",
+      role: "Google Review",
+      source: "google",
+      content: "As I was the first customer of this exclusive “Mom’s Tiffin Service”, I would definitely say that I literally found my mom’s food here.",
+      rating: 5,
+    },
+  ];
 
+  const allReviews = [...googleReviews, ...reviews];
     const [activeIndex, setActiveIndex] = useState(0);
     const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
 
@@ -55,12 +58,12 @@ const Testimonials = () => {
 
     const handleNext = () => {
         setDirection(1);
-        setActiveIndex((prev) => (prev + 1) % reviews.length);
+        setActiveIndex((prev) => (prev + 1) % allReviews.length);
     };
 
     const handlePrev = () => {
         setDirection(-1);
-        setActiveIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
+        setActiveIndex((prev) => (prev - 1 + allReviews.length) % allReviews.length);
     };
 
     // Card slide animation variants
@@ -84,7 +87,7 @@ const Testimonials = () => {
         })
     };
 
-    const activeReview = reviews[activeIndex];
+    const activeReview = allReviews[activeIndex];
 
     // Generate initials for avatar
     const getInitials = (name: string) => {
@@ -170,8 +173,13 @@ const Testimonials = () => {
                                             <h4 className="font-extrabold text-foreground text-sm sm:text-base leading-tight">
                                                 {activeReview.name}
                                             </h4>
-                                            <p className="text-xs text-muted-foreground mt-0.5">
-                                                {activeReview.role}
+                                            <p className="text-xs text-muted-foreground mt-0.5 flex items-center">
+                                              {activeReview.role}
+                                              {activeReview.source === "google" && (
+                                                <span className="ml-2 px-1.5 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded-full">
+                                                  Google
+                                                </span>
+                                              )}
                                             </p>
                                         </div>
                                     </div>
@@ -208,7 +216,7 @@ const Testimonials = () => {
 
                     {/* Navigation Dots */}
                     <div className="flex gap-2">
-                        {reviews.map((_, index) => (
+                        {allReviews.map((_, index) => (
                             <button
                                 key={index}
                                 onClick={() => {
@@ -267,16 +275,32 @@ const Testimonials = () => {
                         Loved our healthy home tiffins? Help our local kitchen grow by leaving a quick star rating and review!
                     </p>
 
-                    <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="rounded-xl font-bold border-primary text-primary hover:bg-primary/5 gap-1.5 cursor-pointer mt-1"
-                        asChild
-                    >
-                        <a href="https://g.page/r/Cbsj8S0lPPJvEBM/review" target="_blank" rel="noopener noreferrer">
-                            Rate Us on Google Maps
-                        </a>
-                    </Button>
+                    <div className="flex flex-col sm:flex-row gap-3 w-full justify-center mt-2">
+                        <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="rounded-xl font-bold border-primary text-primary hover:bg-primary/5 gap-1.5 cursor-pointer flex-1"
+                            asChild
+                        >
+                            <a href="https://g.page/r/Cbsj8S0lPPJvEBM/review" target="_blank" rel="noopener noreferrer">
+                                Rate Us on Google Maps
+                            </a>
+                        </Button>
+                        <Button 
+                            variant="secondary" 
+                            size="sm" 
+                            className="rounded-xl font-bold gap-1.5 cursor-pointer flex-1 bg-green-600 hover:bg-green-500 text-white dark:bg-emerald-600 dark:hover:bg-emerald-500 border-none"
+                            asChild
+                        >
+                            <a 
+                                href={`https://wa.me/917436059291?text=${encodeURIComponent("Hi Mom's Special! 👋 I'd like to share my tiffin review:\n\nReview: \n- Name: ")}`}
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                            >
+                                WhatsApp Review
+                            </a>
+                        </Button>
+                    </div>
                 </motion.div>
 
             </div>

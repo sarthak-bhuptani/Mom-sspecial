@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
 import { Check, MessageCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CostCalculator from "@/components/CostCalculator";
@@ -9,6 +8,12 @@ import { motion, AnimatePresence } from "framer-motion";
 const Pricing = () => {
   const [isWizardOpen, setIsWizardOpen] = useState(false);
   const [mealsPerDay, setMealsPerDay] = useState<1 | 2>(1);
+
+  const WA_NUM = "917436059291";
+  const makeWALink = (planName: string, price: string, period: string) =>
+    `https://wa.me/${WA_NUM}?text=${encodeURIComponent(
+      `Hi! 👋 I'm interested in the *${planName}* plan (${price} ${period}).\n\nCould you please share more details about it?`
+    )}`;
 
   const plans = [
     {
@@ -47,7 +52,7 @@ const Pricing = () => {
       features: [
         "6 Roti + Sabji daily",
         "30 days service",
-        "Includes Sundays",
+        "Includes Sundays (Lunch Only)",
         mealsPerDay === 1 ? "Lunch or Dinner" : "Both Lunch & Dinner daily",
       ],
       popular: false,
@@ -60,12 +65,16 @@ const Pricing = () => {
       features: [
         "Full Thali (6 Roti + Dal/Rice)",
         "30 days service",
+        "Includes Sundays (Lunch Only)",
         "Best value",
         mealsPerDay === 1 ? "Lunch or Dinner" : "Both Lunch & Dinner daily",
       ],
       popular: false,
     },
-  ];
+  ].map((plan) => ({
+    ...plan,
+    whatsappLink: makeWALink(plan.name, plan.price, plan.period),
+  }));
 
   const whatsappMessage = encodeURIComponent(
     "Hello, I am interested in your tiffin service.\nArea:\nMeal type:"
@@ -173,11 +182,14 @@ const Pricing = () => {
                   className="w-full"
                   asChild
                 >
-                  <Link to="/contact">Get Started</Link>
+                  <a href={plan.whatsappLink} target="_blank" rel="noopener noreferrer">
+                    Get Started
+                  </a>
                 </Button>
               </div>
             ))}
           </div>
+
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-16">
             {/* Custom Pricing Card */}

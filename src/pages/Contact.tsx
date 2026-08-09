@@ -12,7 +12,7 @@ const Contact = () => {
     "Hello, I am interested in your tiffin service.\nArea:\nMeal type:"
   );
   const whatsappUrl = `https://wa.me/917436059291?text=${whatsappMessage}`;
-  const whatsappGroupUrl = "https://chat.whatsapp.com/BFPtmPCoc2UDWNOV0RDukA";
+  const whatsappGroupUrl = "https://chat.whatsapp.com/JUIEHa8NwmM5zc8jZFf0FF";
 
   const contactMethods = [
     {
@@ -56,7 +56,12 @@ const Contact = () => {
 
     const lowerInput = areaInput.toLowerCase();
     // Logic: Sector 6 or Sector 7 allowed for delivery
-    if (lowerInput.includes("sector 6") || lowerInput.includes("sector 7")) {
+    if (
+      lowerInput.includes("sector 6") ||
+      lowerInput.includes("sector 7") ||
+      lowerInput.includes("sector 2") ||
+      lowerInput.includes("sector 3")
+    ) {
       setCheckResult({
         allowed: true,
         message: "✅ Yes! Delivery is available in your area (Lunch Only).",
@@ -75,7 +80,7 @@ const Contact = () => {
         <title>Contact Us - Mom's Special | Get in Touch</title>
         <meta
           name="description"
-          content="Contact Mom's Special for home-style tiffin service. Located at Sector-6A, Block No 431/2, Nr. Ambaji Mata Temple, Gandhinagar. Self-service and limited delivery options available."
+          content="Contact Mom's Special for home-style tiffin service. Located at Sector-3B, Block No 1319/1, Gandhinagar. Self-service and limited delivery options available."
         />
       </Helmet>
 
@@ -88,7 +93,7 @@ const Contact = () => {
               Get in Touch
             </h1>
             <p className="text-base md:text-lg text-muted-foreground">
-              Visit us at Sector-6A, Block No 431/2, Nr. Ambaji Mata Temple, Gandhinagar.
+              Visit us at Sector-3B, Block No 1319/1, Gandhinagar.
             </p>
           </div>
         </div>
@@ -219,15 +224,17 @@ const Contact = () => {
               </div>
               <div className="space-y-4">
                 <div className="p-4 bg-accent/20 rounded-xl border border-accent/50">
-                  <h4 className="font-bold text-foreground mb-1">Sector-6A, Block No 431/2</h4>
-                  <p className="text-sm font-medium text-foreground mb-1">Nr. Ambaji Mata Temple, Gandhinagar</p>
+                  <h4 className="font-bold text-foreground mb-1">Sector-3B, Block No 1319/1</h4>
+                  <p className="text-sm font-medium text-foreground mb-1">Gandhinagar</p>
                   <p className="text-sm text-muted-foreground">Main Kitchen & Self-Service Pickup Point</p>
                 </div>
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold text-foreground">Delivery Areas (Dinner Only):</p>
+                  <p className="text-sm font-semibold text-foreground">Delivery Areas:</p>
                   <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                    <li>Sector 6</li>
+                    <li>Sector 6 & 6A</li>
                     <li>Sector 7</li>
+                    <li>Sector 2</li>
+                    <li>Sector 3</li>
                   </ul>
                   <p className="text-xs text-orange-600 dark:text-orange-400 mt-2 font-medium">
                     * Other areas: Self-service pickup only.
@@ -276,7 +283,7 @@ const Contact = () => {
             Ready to Order?
           </h2>
           <p className="text-base md:text-lg text-primary-foreground/90 mb-8 max-w-xl mx-auto">
-            Visit us at Sector 6A or order lunch delivery in Sector 6 & 7.
+            Visit us at Sector 3B or order tiffin delivery in Sectors 6, 7, 2 & 3.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="heroOutline" size="xl" className="w-full sm:w-auto" asChild>

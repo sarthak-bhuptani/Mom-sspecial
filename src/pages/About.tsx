@@ -41,7 +41,7 @@ const About = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="pt-36 sm:pt-40 md:pt-32 pb-20 bg-gradient-to-br from-cream to-orange-50 dark:from-background dark:to-muted relative overflow-hidden">
+      <section className="pt-36 sm:pt-40 md:pt-32 pb-20 bg-gradient-to-br from-cream to-orange-50 dark:from-background dark:to-background relative overflow-hidden">
         {/* Decorative Circles */}
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -123,7 +123,7 @@ const About = () => {
       </section>
 
       {/* Core Values */}
-      <section className="py-24 bg-muted/30">
+      <section className="py-24 bg-muted/20 dark:bg-muted/10">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 max-w-2xl mx-auto">
             <span className="text-primary font-medium tracking-wide">WHY CHOOSE US</span>
@@ -166,13 +166,14 @@ const About = () => {
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">
             Ready to Taste the Difference?
           </h2>
-          <motion.button
+          <motion.a
+            href="/menu"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-white text-primary font-bold text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all"
+            className="inline-block bg-white dark:bg-primary-foreground text-primary font-bold text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all"
           >
-            <a href="/menu">Order Your First Meal</a>
-          </motion.button>
+            Order Your First Meal
+          </motion.a>
         </div>
       </section>
     </>
