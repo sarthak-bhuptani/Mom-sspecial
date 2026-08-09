@@ -41,7 +41,7 @@ const About = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="pt-36 sm:pt-40 md:pt-32 pb-20 bg-gradient-to-br from-cream to-orange-50 dark:from-background dark:to-background relative overflow-hidden">
+      <section className="pt-28 sm:pt-36 pb-12 sm:pb-20 bg-gradient-to-br from-cream to-orange-50 dark:from-background dark:to-background relative overflow-hidden">
         {/* Decorative Circles */}
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -74,7 +74,7 @@ const About = () => {
       </section>
 
       {/* Our Story Section */}
-      <section className="py-24 bg-background relative">
+      <section className="py-12 sm:py-24 bg-background relative">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -123,7 +123,7 @@ const About = () => {
       </section>
 
       {/* Core Values */}
-      <section className="py-24 bg-muted/20 dark:bg-muted/10">
+      <section className="py-16 sm:py-24 bg-muted/20 dark:bg-muted/10">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 max-w-2xl mx-auto">
             <span className="text-primary font-medium tracking-wide">WHY CHOOSE US</span>
@@ -160,7 +160,7 @@ const About = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-24 bg-primary relative overflow-hidden">
+      <section className="py-12 sm:py-20 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/food.png')] opacity-10"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">

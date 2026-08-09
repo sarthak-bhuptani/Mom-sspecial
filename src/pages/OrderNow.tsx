@@ -67,7 +67,7 @@ const OrderNow = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="pt-36 sm:pt-40 md:pt-32 pb-10 bg-gradient-to-b from-primary/5 to-background text-center relative overflow-hidden">
+      <section className="pt-28 sm:pt-36 pb-6 sm:pb-10 bg-gradient-to-b from-primary/5 to-background text-center relative overflow-hidden">
         <div className="absolute top-10 left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10 animate-pulse-soft" />
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -z-10 animate-pulse-soft" style={{ animationDelay: "1s" }} />
 
@@ -92,13 +92,13 @@ const OrderNow = () => {
       </section>
 
       {/* Order Form Section */}
-      <section className="py-10 bg-background relative">
+      <section className="py-6 sm:py-10 bg-background relative">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="max-w-2xl mx-auto bg-card rounded-3xl shadow-lg border border-border p-4 sm:p-6 md:p-10"
+            className="max-w-2xl mx-auto bg-card rounded-3xl shadow-lg border border-border p-4 sm:p-6"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               
@@ -282,7 +282,7 @@ const OrderNow = () => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: "100%", opacity: 0 }}
               transition={{ type: "spring", damping: 30, stiffness: 280 }}
-              className="bg-[#efeae2] dark:bg-[#0b141a] rounded-t-3xl sm:rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border-t sm:border border-border flex flex-col h-[82vh] sm:h-[580px] relative font-sans text-foreground"
+              className="bg-[#efeae2] dark:bg-[#0b141a] rounded-t-3xl sm:rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border-t sm:border border-border flex flex-col h-[85vh] sm:h-[580px] relative font-sans text-foreground"
             >
               {/* WhatsApp Header */}
               <div className="bg-[#075e54] dark:bg-[#202c33] text-white px-4 py-3.5 flex items-center justify-between shadow-md shrink-0">

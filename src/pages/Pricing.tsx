@@ -92,7 +92,7 @@ const Pricing = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="pt-36 sm:pt-40 md:pt-32 pb-16 bg-cream">
+      <section className="pt-28 sm:pt-36 pb-10 sm:pb-16 bg-cream">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <span className="text-primary font-medium">Pricing</span>
@@ -107,39 +107,54 @@ const Pricing = () => {
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-16 bg-background">
+      <section className="py-10 sm:py-16 bg-background">
         <div className="container mx-auto px-4">
           {/* Meals Per Day Toggle */}
           <div className="flex justify-center mb-12">
-            <div className="bg-muted p-1 rounded-2xl flex items-center border border-border shadow-inner w-full max-w-[340px] sm:max-w-[400px]">
+            <div className="bg-muted p-1 rounded-2xl flex items-center border border-border shadow-inner w-full max-w-[340px] sm:max-w-[400px] relative z-10">
               <button
                 onClick={() => setMealsPerDay(1)}
-                className={`flex-1 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 ${
-                  mealsPerDay === 1
-                    ? "bg-primary text-primary-foreground shadow-md"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
+                className="flex-1 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors duration-300 relative"
               >
-                1 Meal / Day
-                <span className="block text-[9px] sm:text-[10px] font-normal opacity-80 mt-0.5">Lunch or Dinner</span>
+                {mealsPerDay === 1 && (
+                  <motion.div
+                    layoutId="mealsPerDayBg"
+                    className="absolute inset-0 bg-primary rounded-xl shadow-md -z-10"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className={mealsPerDay === 1 ? "text-primary-foreground" : "text-muted-foreground"}>
+                  1 Meal / Day
+                </span>
+                <span className={`block text-[9px] sm:text-[10px] font-normal mt-0.5 ${mealsPerDay === 1 ? "text-primary-foreground/80" : "text-muted-foreground/80"}`}>
+                  Lunch or Dinner
+                </span>
               </button>
               <button
                 onClick={() => setMealsPerDay(2)}
-                className={`flex-1 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 ${
-                  mealsPerDay === 2
-                    ? "bg-primary text-primary-foreground shadow-md"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
+                className="flex-1 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors duration-300 relative"
               >
-                2 Meals / Day
-                <span className="block text-[9px] sm:text-[10px] font-normal opacity-80 mt-0.5">Lunch & Dinner</span>
+                {mealsPerDay === 2 && (
+                  <motion.div
+                    layoutId="mealsPerDayBg"
+                    className="absolute inset-0 bg-primary rounded-xl shadow-md -z-10"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className={mealsPerDay === 2 ? "text-primary-foreground" : "text-muted-foreground"}>
+                  2 Meals / Day
+                </span>
+                <span className={`block text-[9px] sm:text-[10px] font-normal mt-0.5 ${mealsPerDay === 2 ? "text-primary-foreground/80" : "text-muted-foreground/80"}`}>
+                  Lunch & Dinner
+                </span>
               </button>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {plans.map((plan) => (
-              <div
+              <motion.div
+                layout
                 key={plan.name}
                 className={`relative bg-card rounded-2xl p-6 transition-all duration-300 ${
                   plan.popular
@@ -186,7 +201,7 @@ const Pricing = () => {
                     Get Started
                   </a>
                 </Button>
-              </div>
+              </motion.div>
             ))}
           </div>
 

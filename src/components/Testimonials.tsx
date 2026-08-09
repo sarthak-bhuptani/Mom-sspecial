@@ -96,7 +96,7 @@ const Testimonials = () => {
     };
 
     return (
-        <section className="py-20 bg-primary/5 relative overflow-hidden">
+        <section className="py-10 sm:py-20 bg-primary/5 relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2" />
             <div className="absolute bottom-0 right-0 w-64 h-64 bg-secondary/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2" />
@@ -113,7 +113,7 @@ const Testimonials = () => {
                 </div>
 
                 {/* Slider Wrapper */}
-                <div className="max-w-3xl mx-auto relative min-h-[380px] sm:min-h-[300px] flex items-center justify-center">
+                <div className="max-w-3xl mx-auto relative min-h-[280px] sm:min-h-[300px] flex items-center justify-center">
                     
                     {/* Left Arrow Button */}
                     <button
@@ -143,7 +143,7 @@ const Testimonials = () => {
                                 initial="enter"
                                 animate="center"
                                 exit="exit"
-                                className="bg-card p-8 sm:p-10 rounded-3xl shadow-card border border-border overflow-hidden relative flex flex-col justify-between min-h-[320px] sm:min-h-[250px]"
+                                className="bg-card p-5 sm:p-10 rounded-3xl shadow-card border border-border overflow-hidden relative flex flex-col justify-between min-h-[220px] sm:min-h-[250px]"
                             >
                                 {/* Quote Icon Overlay */}
                                 <Quote className="absolute top-6 right-6 w-24 h-24 text-primary/5 pointer-events-none transform rotate-180" />
@@ -237,7 +237,7 @@ const Testimonials = () => {
                     initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="max-w-md mx-auto mt-16 p-6 bg-card rounded-3xl border border-border/80 shadow-md text-center flex flex-col items-center gap-4 hover:shadow-lg transition-all duration-300 relative z-10"
+                    className="max-w-md mx-auto mt-8 sm:mt-16 p-5 sm:p-6 bg-card rounded-3xl border border-border/80 shadow-md text-center flex flex-col items-center gap-4 hover:shadow-lg transition-all duration-300 relative z-10"
                 >
                     <div className="flex items-center gap-2">
                         {/* Google Logo SVG */}
@@ -275,21 +275,17 @@ const Testimonials = () => {
                         Loved our healthy home tiffins? Help our local kitchen grow by leaving a quick star rating and review!
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-3 w-full justify-center mt-2">
+                    <div className="grid grid-cols-2 gap-2.5 w-full mt-2">
                         <Button 
-                            variant="outline" 
-                            size="sm" 
-                            className="rounded-xl font-bold border-primary text-primary hover:bg-primary/5 gap-1.5 cursor-pointer flex-1"
+                            className="rounded-xl font-bold text-xs bg-primary hover:bg-primary/95 text-white gap-1.5 cursor-pointer py-3.5"
                             asChild
                         >
                             <a href="https://g.page/r/Cbsj8S0lPPJvEBM/review" target="_blank" rel="noopener noreferrer">
-                                Rate Us on Google Maps
+                                Google Review
                             </a>
                         </Button>
                         <Button 
-                            variant="secondary" 
-                            size="sm" 
-                            className="rounded-xl font-bold gap-1.5 cursor-pointer flex-1 bg-green-600 hover:bg-green-500 text-white dark:bg-emerald-600 dark:hover:bg-emerald-500 border-none"
+                            className="rounded-xl font-bold text-xs gap-1.5 cursor-pointer bg-green-600 hover:bg-green-500 text-white dark:bg-green-600 dark:hover:bg-green-500 border-none py-3.5"
                             asChild
                         >
                             <a 

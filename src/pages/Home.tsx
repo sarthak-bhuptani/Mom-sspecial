@@ -59,7 +59,7 @@ const Home = () => {
             <span className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-6 animate-fade-in">
               🍱 Local Tiffin Service
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
               Home-Style <span className="text-primary">Healthy Food</span>
             </h1>
             <p className="text-lg md:text-xl text-white/90 mb-8 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
@@ -96,7 +96,7 @@ const Home = () => {
       {/* <StatsSection /> */}
 
       {/* Chef's Corner / Behind the Scenes */}
-      <section className="py-20 md:py-28 bg-cream">
+      <section className="py-12 md:py-24 bg-cream">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
@@ -191,7 +191,7 @@ const Home = () => {
       <Testimonials />
 
       {/* How It Works */}
-      <section className="py-20 md:py-28 bg-background">
+      <section className="py-12 md:py-24 bg-background">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -242,7 +242,7 @@ const Home = () => {
       <DeliveryAreas />
 
       {/* CTA Section */}
-      <section className="py-20 gradient-hero">
+      <section className="py-12 md:py-20 gradient-hero">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
