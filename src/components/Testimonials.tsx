@@ -155,7 +155,7 @@ const Testimonials = () => {
 
                                     {/* Content Text */}
                                     <p className="text-foreground/90 text-base sm:text-lg italic leading-relaxed mb-8 relative z-10">
-                                        "{activeReview.content}"
+                                        {activeReview.content}
                                     </p>
                                 </div>
 
